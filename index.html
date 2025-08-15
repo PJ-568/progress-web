@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="任务进度管理系统 - 高效管理您的任务和进度"
+    />
+    <meta name="keywords" content="任务管理,进度跟踪,效率工具,时间管理" />
+    <meta name="author" content="Progress Web" />
+
+    <title>任务进度管理系统</title>
+
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="style/main.css" />
+
+    <!-- 图标 -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- PWA支持 -->
+    <meta name="theme-color" content="#007bff" />
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- 预连接优化 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+
+  <body>
+    <!-- 应用加载指示器 -->
+    <div
+      id="app-loading"
+      class="loading loading--overlay"
+      style="display: flex"
+    >
+      <div class="loading-spinner"></div>
+      <span class="loading-text">正在加载应用……</span>
+    </div>
+
+    <!-- 主应用容器 -->
+    <div id="app" class="app-container" style="display: none">
+      <!-- 应用内容将由JavaScript动态生成 -->
+    </div>
+
+    <!-- 错误边界 -->
+    <div id="error-boundary" class="error-boundary" style="display: none">
+      <div class="error-content">
+        <h1>😕 应用出现错误</h1>
+        <p>很抱歉，应用遇到了一些问题。请尝试刷新页面。</p>
+        <div class="error-actions">
+          <button
+            type="button"
+            class="btn btn--primary"
+            onclick="window.location.reload()"
+          >
+            刷新页面
+          </button>
+          <button
+            type="button"
+            class="btn btn--secondary"
+            onclick="localStorage.clear(); window.location.reload()"
+          >
+            清除数据并刷新
+          </button>
+        </div>
+        <details class="error-details">
+          <summary>错误详情</summary>
+          <pre id="error-message"></pre>
+        </details>
+      </div>
+    </div>
+
+    <!-- 无JavaScript提示 -->
+    <noscript>
+      <div class="noscript-warning">
+        <h1>需要启用 JavaScript</h1>
+        <p>
+          此应用需要 JavaScript 才能正常运行。请在浏览器设置中启用
+          JavaScript，然后刷新页面。
+        </p>
+      </div>
+    </noscript>
+
+    <!-- 应用脚本 -->
+    <script type="module" src="scripts/app.js"></script>
+
+    <!-- 内联样式用于错误边界和加载状态 -->
+    <style>
+      .app-container {
+        min-height: 100vh;
+      }
+
+      .error-boundary {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .error-content {
+        max-width: 600px;
+        padding: 2rem;
+        text-align: center;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+      }
+
+      .error-content h1 {
+        color: #dc3545;
+        margin-bottom: 1rem;
+      }
+
+      .error-content p {
+        color: #6c757d;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .error-details {
+        text-align: left;
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+      }
+
+      .error-details summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+      }
+
+      .error-details pre {
+        font-size: 0.875rem;
+        color: #dc3545;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        margin: 0;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .noscript-warning {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        text-align: center;
+        background-color: #f8f9fa;
+      }
+
+      .noscript-warning h1 {
+        color: #dc3545;
+        margin-bottom: 1rem;
+      }
+
+      .noscript-warning p {
+        color: #6c757d;
+        max-width: 500px;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 768px) {
+        .error-content {
+          margin: 1rem;
+          padding: 1.5rem;
+        }
+
+        .error-actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+
+    <!-- 应用元数据（用于 PWA） -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "任务进度管理系统",
+        "description": "高效的任务管理和进度跟踪工具",
+        "url": "https://progress-web.pj568.eu.org",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "0.1.0",
+        "author": {
+          "@type": "Organization",
+          "name": "Progress Web Team"
+        }
+      }
+    </script>
+  </body>
+</html>
